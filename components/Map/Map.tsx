@@ -22,7 +22,7 @@ function BaseMap({children}: {children: ReactNode}) {
         width: '100vw'
       }}>
         <Map
-          mapboxAccessToken="pk.eyJ1IjoiY2Fubm9uLWxvY2siLCJhIjoiY2xqNmpla2dqMGpmZTNxbnY2M210c2RwcCJ9.b1Z-x0y2urZLAFp8Sv0-wQ"
+          mapboxAccessToken="pk.eyJ1IjoiY2Fubm9uLWxvY2siLCJhIjoiY21tMTUxbjhqMDVnaDJxcHE2eWp6aGo2ZiJ9.oZFr4GezivM26AkP87Cg-w"
           initialViewState={{
             longitude: -92.4,
             latitude: 37.8,
