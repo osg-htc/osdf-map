@@ -93,7 +93,7 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: map-data
-          path: ./public/data/endpoint_site_map.json
+          path: ./public/data
       - name: Build with Next.js
         run: |
           pnpm run build
