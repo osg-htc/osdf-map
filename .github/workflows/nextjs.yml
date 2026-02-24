@@ -54,7 +54,7 @@ jobs:
           END_DATE=$(python3 -c "import datetime; print(datetime.date.today().strftime('%F'))")
           echo "Running data builder with start date: $START_DATE and end date: $END_DATE"
           
-          docker run --rm \ 
+          docker run --rm \
             -v ${{ github.workspace }}:/app \
             -e ELASTIC_HOST="https://elastic.osg.chtc.io/q" \
             -e ELASTIC_USER="${{ secrets.ELASTIC_USER }}" \
@@ -70,6 +70,7 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    needs: build-data
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
