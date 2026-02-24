@@ -42,7 +42,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          repository: "https://github.com/osg-htc/nsf-osdf-map"
+          repository: "osg-htc/nsf-osdf-map"
 
       - name: Build Docker image
         run: |
