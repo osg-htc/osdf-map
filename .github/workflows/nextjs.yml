@@ -30,6 +30,43 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Get Data
+  build-data:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          repository: "https://github.com/osg-htc/nsf-osdf-map"
+
+      - name: Build Docker image
+        run: |
+          docker build -t nsf-osdf-map-data-builder .
+
+      - name: Run Docker container
+        run: |
+          START_DATE=$(python3 -c "import datetime; print((datetime.date.today()-datetime.timedelta(days=365)).strftime('%F'))")
+          END_DATE=$(python3 -c "import datetime; print(datetime.date.today().strftime('%F'))")
+          echo "Running data builder with start date: $START_DATE and end date: $END_DATE"
+          
+          docker run --rm \ 
+            -v ${{ github.workspace }}:/app \
+            -e ELASTIC_HOST="https://elastic.osg.chtc.io/q" \
+            -e ELASTIC_USER="${{ secrets.ELASTIC_USER }}" \
+            -e ELASTIC_PASSWORD="${{ secrets.ELASTIC_PASSWORD }}" \
+            nsf-osdf-map-data-builder map --use-elasticsearch --start $START_DATE --end $END_DATE
+
+      - name: Upload data artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: map-data
+          path: ./endpoint_site_map.json
+
   # Build job
   build:
     runs-on: ubuntu-latest
@@ -51,6 +88,11 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
+      - name: Download data artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: map-data
+          path: ./public/data/endpoint_site_map.json
       - name: Build with Next.js
         run: |
           pnpm run build

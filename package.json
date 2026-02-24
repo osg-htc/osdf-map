@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "postbuild": "next-image-export-optimizer && next-sitemap",
     "start": "next start",
@@ -11,7 +11,7 @@
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
-    "@chtc/web-components": "^1.0.15",
+    "@chtc/web-components": "^1.0.20",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
@@ -20,11 +20,15 @@
     "@mui/material-nextjs": "^7.3.7",
     "@next/bundle-analyzer": "^15.5.10",
     "@socialgouv/matomo-next": "^1.11.0",
-    "next": "^16.1.5",
+    "@types/geojson": "^7946.0.16",
+    "@types/mapbox-gl": "^3.5.0",
+    "mapbox-gl": "^3.18.1",
+    "next": "^16.1.6",
     "next-image-export-optimizer": "^1.20.1",
     "next-sitemap": "^4.2.3",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-map-gl": "^8.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
