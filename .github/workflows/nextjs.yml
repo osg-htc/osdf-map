@@ -76,7 +76,7 @@ jobs:
     needs: build-data
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NEXT_PUBLIC_BASE_PATH: osdf-map
+      NEXT_PUBLIC_BASE_PATH: /osdf-map
       HOSTNAME: "osg-htc.org/osdf-map"
     steps:
       - name: Checkout
