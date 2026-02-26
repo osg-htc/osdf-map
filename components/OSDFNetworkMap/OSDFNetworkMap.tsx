@@ -8,6 +8,7 @@ import {OSDFNetworkMapProvider, useOSDFNetworkMap} from "@/components/OSDFNetwor
 import {useMap} from "react-map-gl/mapbox";
 import ServerList from "@/components/ServerList";
 import Grid from "@mui/material/Grid";
+import Legend from "@/components/Legend";
 
 interface OSDFNetworkMapProps {
   siteMap: EnhancedEndpointEntry[];
@@ -38,6 +39,7 @@ const OSDFNetworkMap = ({siteMap, totalMetrics}: OSDFNetworkMapProps) => {
           </Paper>
         </Grid>
       </Grid>
+      <Legend />
     </OSDFNetworkMapProvider>
   )
 }
