@@ -52,12 +52,6 @@ const ServerSiteLayer = ({siteMap, totalMetrics}: ServerSiteLayerProps) => {
           }}
         />
       })}
-      <SiteServerOverview
-        endpointEntry={activeSite}
-        totalMetrics={totalMetrics}
-        onToggleForward={() => dispatch({ type: 'GO_FORWARD', total: sitesWithServers.length })}
-        onToggleReverse={() => dispatch({ type: 'GO_BACKWARD', total: sitesWithServers.length })}
-      />
     </>
   )
 }

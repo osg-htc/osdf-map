@@ -14,7 +14,7 @@ interface ExecutionPointLayerProps {
 
 const ExecutionPointLayer = ({
   institutions,
-  targetRadius = 1000,
+  targetRadius = 3000,
   expansionDuration = 2000
 }: ExecutionPointLayerProps) => {
 
