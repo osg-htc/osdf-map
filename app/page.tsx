@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import Map from "@/components/Map";
 import {EndpointSiteMap, Metrics} from "@/app/types";
 import ServerSiteLayer from "@/components/ServerLayer/ServerLayer";
+import OSDFNetworkMap from "@/components/OSDFNetworkMap";
 
 
 export default async function Home() {
@@ -19,7 +20,7 @@ export default async function Home() {
         objects: s.institutions.reduce((acc, site) => acc + site.objects, 0),
       } as Metrics
     }
-  })
+  }).sort((a, b) => a.server?.name.localeCompare(b.server?.name || "") || 0);
   const totalMetrics = enhancedSiteMap.reduce((acc, entry) => {
     acc.count += entry.summary.count;
     acc.bytes += entry.summary.bytes;
@@ -31,9 +32,7 @@ export default async function Home() {
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
-      <Map>
-        <ServerSiteLayer siteMap={enhancedSiteMap} totalMetrics={totalMetrics} />
-      </Map>
+      <OSDFNetworkMap siteMap={enhancedSiteMap} totalMetrics={totalMetrics} />
     </Box>
   );
 }

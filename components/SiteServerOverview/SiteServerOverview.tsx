@@ -9,7 +9,7 @@ import {FastForward, FastRewind, Pause, PlayArrow, Storage, TripOrigin} from "@m
 interface SiteServerOverviewProps {
   endpointEntry: EnhancedEndpointEntry;
   totalMetrics: Metrics;
-  play: boolean;
+  play?: boolean;
   onPlay?: () => void;
   onToggleForward?: () => void;
   onToggleReverse?: () => void;
@@ -58,13 +58,6 @@ const SiteServerOverview = ({
           >
             {e.server?.name}
           </Typography>
-        </Box>
-        <Box display={"flex"} flexShrink={1}>
-          <Box display="flex">
-            <IconButton onClick={onToggleReverse}><FastRewind /></IconButton>
-            <IconButton onClick={onPlay}>{play ? <PlayArrow /> : <Pause />}</IconButton>
-            <IconButton onClick={onToggleForward}><FastForward /></IconButton>
-          </Box>
         </Box>
       </Box>
 

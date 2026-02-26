@@ -12,14 +12,15 @@ function BaseMap({children}: {children: ReactNode}) {
   return (
     <>
       <Box component={'div'} style={{
-        position: 'absolute',
         top: 0,
         left: 0,
         backgroundColor: "white",
         borderRadius: 1,
         zIndex: 999,
-        height: '100vh',
-        width: '100vw'
+        height: '100%',
+        width: '100%',
+        maxHeight: '100vh',
+        maxWidth: '100vw',
       }}>
         <Map
           mapboxAccessToken="pk.eyJ1IjoiY2Fubm9uLWxvY2siLCJhIjoiY21tMTUxbjhqMDVnaDJxcHE2eWp6aGo2ZiJ9.oZFr4GezivM26AkP87Cg-w"

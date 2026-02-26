@@ -12,13 +12,15 @@ import ExecutionPointMarker from "@/components/ExecutionPointMarker";
 export interface PelicanServerMarkerProps extends Marker {
   name: string;
   type: "Cache" | "Origin";
+  active: boolean;
   showInstitutions: boolean;
   showConnections: boolean;
   institutions: Institution[];
   totalMetrics: Metrics;
+  onClick?: (name: string) => void;
 }
 
-const PelicanServerMarker = ({name, type, latitude, longitude, institutions, showInstitutions, showConnections}: PelicanServerMarkerProps) => {
+const PelicanServerMarker = ({name, type, active, latitude, longitude, institutions, showInstitutions, showConnections, onClick}: PelicanServerMarkerProps) => {
 
   // Filter out institutions that don't have valid latitude and longitude
   const validConnections = institutions
@@ -31,21 +33,29 @@ const PelicanServerMarker = ({name, type, latitude, longitude, institutions, sho
       longitude={longitude}
       color="#FF5733"
       offset={[0, 0]}
-      onClick={() => console.log(location)}
+      onClick={() => onClick && onClick(name)}
+      style={{
+        cursor: 'pointer',
+      }}
     >
       <Box>
-        <Box sx={{backgroundColor: "black", borderRadius: "50%", padding: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          { type == "Cache" ? <Storage color={"primary"} fontSize={'large'} /> : <TripOrigin color={"primary"} fontSize={'large'}/> }
-        </Box>
+        {active ?
+          <Box sx={{backgroundColor: "black", borderRadius: "50%", padding: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1001}}>
+            { type == "Cache" ? <Storage color={"primary"} /> : <TripOrigin color={"primary"}/> }
+          </Box> :
+          <Box sx={{ borderRadius: "50%", padding: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1000}}>
+            { type == "Cache" ? <Storage sx={{ color: "rgba(0,0,0,0.24)"}} fontSize={'small'} /> : <TripOrigin sx={{ color: "rgba(0,0,0,0.24)"}} fontSize={'small'}/> }
+          </Box>
+        }
         { showConnections && institutions && (
           <ConnectionLayer origin={{latitude, longitude}} destinations={validConnections} />
         )}
-        { showInstitutions && institutions && (
+        { showConnections && institutions && (
           <ExecutionPointLayer institutions={institutions} expansionDuration={5000} />
         )}
-        {institutions &&
+        { showConnections && institutions &&
           institutions.map((institution) => (
-            <ExecutionPointMarker institution={institution} />
+            <ExecutionPointMarker key={institution.name} institution={institution} />
           ))
         }
       </Box>
