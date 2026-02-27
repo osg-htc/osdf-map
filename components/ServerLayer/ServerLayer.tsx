@@ -17,7 +17,7 @@ const ServerSiteLayer = ({siteMap, totalMetrics}: ServerSiteLayerProps) => {
 
   const {state: {activeSiteIndex}, dispatch} = useOSDFNetworkMap();
 
-  const sitesWithServers = siteMap.filter(endpointEntry => endpointEntry.server);
+  const sitesWithServers = siteMap
   const activeSite = sitesWithServers[activeSiteIndex];
   const {current: map} = useMap();
 

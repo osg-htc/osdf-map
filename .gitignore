@@ -33,3 +33,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Ignore data the is generated at runtime
+/public/data/endpoint_site_map.json
