@@ -23,10 +23,6 @@ const Legend = ({date}: {date: Date}) => {
       }}
     >
       <Box display="flex" flexDirection="row" alignItems={'center'} mb={1}>
-        <Box sx={{borderRadius: "50%", borderColor: "#65b853", border: '2px solid', backgroundColor: "#e4fddb", height:'1.65rem', width: '1.65rem'}}></Box>
-        <Typography sx={{ml:1}} variant={'subtitle1'}>Institution</Typography>
-      </Box>
-      <Box display="flex" flexDirection="row" alignItems={'center'} mb={1}>
         <Box sx={{backgroundColor: "black", borderRadius: "50%", padding: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1001}}>
           <Storage color={"primary"} />
         </Box>
@@ -37,6 +33,10 @@ const Legend = ({date}: {date: Date}) => {
           <TripOrigin color={"primary"}/>
         </Box>
         <Typography sx={{ml:1}} variant={'subtitle1'}>Origin</Typography>
+      </Box>
+      <Box display="flex" flexDirection="row" alignItems={'center'} mb={1}>
+        <Box sx={{borderRadius: "50%", borderColor: "#65b853", border: '2px solid', backgroundColor: "#e4fddb", height:'1.65rem', width: '1.65rem'}}></Box>
+        <Typography sx={{ml:1}} variant={'subtitle1'}>Data Transferred to Institution</Typography>
       </Box>
       <hr/>
       <Box display="flex" flexDirection="column" alignItems={''}>

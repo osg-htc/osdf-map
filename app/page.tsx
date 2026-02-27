@@ -20,7 +20,9 @@ export default async function Home() {
         objects: s.institutions.reduce((acc, site) => acc + site.objects, 0),
       } as Metrics
     }
-  }).sort((a, b) => a.server?.name.localeCompare(b.server?.name || "") || 0);
+  })
+    .sort((a, b) => a.server?.name.localeCompare(b.server?.name || "") || 0)
+    .filter(s => s.server); // Filter out entries without server information
   const totalMetrics = enhancedSiteMap.reduce((acc, entry) => {
     acc.count += entry.summary.count;
     acc.bytes += entry.summary.bytes;
