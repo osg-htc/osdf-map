@@ -55,7 +55,7 @@ const ServerList = ({siteMap, totalMetrics}: ServerListProps) => {
                 <Grid>
                   <Box>
                     <Typography variant={"subtitle2"}>
-                      {e.summary.count.toLocaleString()} Jobs
+                      Transferred:
                     </Typography>
                   </Box>
                 </Grid>

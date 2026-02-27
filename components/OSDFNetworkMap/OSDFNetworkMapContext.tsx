@@ -38,7 +38,7 @@ interface OSDFNetworkMapProviderProps {
 }
 
 export const OSDFNetworkMapProvider = ({ children }: OSDFNetworkMapProviderProps) => {
-  const [state, dispatch] = useReducer(reducer, { activeSiteIndex: 4 });
+  const [state, dispatch] = useReducer(reducer, { activeSiteIndex: 0 });
 
   return (
     <OSDFNetworkMapContext.Provider value={{ state, dispatch }}>

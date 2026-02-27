@@ -38,7 +38,7 @@ const PelicanServerMarker = ({name, type, active, latitude, longitude, instituti
         cursor: 'pointer',
       }}
     >
-      <Box>
+      <Box zIndex={99999999}>
         {active ?
           <Box sx={{backgroundColor: "black", borderRadius: "50%", padding: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1001}}>
             { type == "Cache" ? <Storage color={"primary"} /> : <TripOrigin color={"primary"}/> }

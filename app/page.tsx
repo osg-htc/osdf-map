@@ -21,7 +21,7 @@ export default async function Home() {
       } as Metrics
     }
   })
-    .sort((a, b) => a.server?.name.localeCompare(b.server?.name || "") || 0)
+    .sort((a, b) => b.total_bytes - a.total_bytes)
     .filter(s => s.server); // Filter out entries without server information
   const totalMetrics = enhancedSiteMap.reduce((acc, entry) => {
     acc.count += entry.summary.count;
