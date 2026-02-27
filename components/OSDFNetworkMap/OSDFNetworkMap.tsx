@@ -13,9 +13,10 @@ import Legend from "@/components/Legend";
 interface OSDFNetworkMapProps {
   siteMap: EnhancedEndpointEntry[];
   totalMetrics: Metrics;
+  date: Date;
 }
 
-const OSDFNetworkMap = ({siteMap, totalMetrics}: OSDFNetworkMapProps) => {
+const OSDFNetworkMap = ({siteMap, totalMetrics, date}: OSDFNetworkMapProps) => {
 
   return (
     <OSDFNetworkMapProvider>
@@ -39,7 +40,7 @@ const OSDFNetworkMap = ({siteMap, totalMetrics}: OSDFNetworkMapProps) => {
           </Paper>
         </Grid>
       </Grid>
-      <Legend />
+      <Legend date={date} />
     </OSDFNetworkMapProvider>
   )
 }

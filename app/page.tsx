@@ -28,11 +28,11 @@ export default async function Home() {
     return acc;
   }, {count: 0, bytes: 0, objects: 0} as Metrics);
 
-  console.log(totalMetrics);
+  const generatedDate = new Date();
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
-      <OSDFNetworkMap siteMap={enhancedSiteMap} totalMetrics={totalMetrics} />
+      <OSDFNetworkMap siteMap={enhancedSiteMap} totalMetrics={totalMetrics} date={generatedDate} />
     </Box>
   );
 }
