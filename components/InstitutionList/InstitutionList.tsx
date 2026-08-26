@@ -1,7 +1,7 @@
 import {useEffect, useRef} from "react";
 import {useMap} from "react-map-gl/mapbox";
 import {Box, Collapse} from "@mui/material";
-import {Business, Storage, TripOrigin} from "@mui/icons-material";
+import {Business, Storage} from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
@@ -31,8 +31,7 @@ const InstitutionList = ({institutions}: InstitutionListProps) => {
     <Box ref={containerRef} overflow="auto" p={2}>
       {institutions.map((institution, i) => {
         const active = i === activeSiteIndex;
-        const caches = institution.servers.filter(s => s.type === "Cache").length;
-        const origins = institution.servers.length - caches;
+        const caches = institution.servers.length;
 
         return (
           <Box
@@ -52,7 +51,7 @@ const InstitutionList = ({institutions}: InstitutionListProps) => {
             <Box display={'flex'} mr={1} my={"auto"}>
               <Business color={"primary"} fontSize={'small'} />
               <Typography sx={{ml:1}} variant={'subtitle2'}>
-                {caches} {caches === 1 ? "Cache" : "Caches"}{origins > 0 && `, ${origins} ${origins === 1 ? "Origin" : "Origins"}`}
+                {caches} {caches === 1 ? "Cache" : "Caches"}
               </Typography>
             </Box>
             <Typography
@@ -90,10 +89,7 @@ const InstitutionList = ({institutions}: InstitutionListProps) => {
               <Box mt={1} pl={1} sx={{borderLeft: '2px solid rgba(0,0,0,0.12)'}}>
                 {institution.servers.map(server => (
                   <Box key={server.name} display="flex" alignItems="center" gap={1} py={0.25} overflow="hidden">
-                    { server.type == "Cache" ?
-                      <Storage sx={{color: "#FF5733"}} fontSize={'small'} /> :
-                      <TripOrigin sx={{color: "#FF5733"}} fontSize={'small'} />
-                    }
+                    <Storage sx={{color: "#FF5733"}} fontSize={'small'} />
                     <Typography
                       variant={'body2'}
                       sx={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', flexGrow: 1}}
@@ -101,8 +97,8 @@ const InstitutionList = ({institutions}: InstitutionListProps) => {
                     >
                       {server.name}
                     </Typography>
-                    <Typography variant={'caption'} sx={{whiteSpace: 'nowrap'}}>
-                      {byteString(server.bytes)}
+                    <Typography variant={'caption'} sx={{whiteSpace: 'nowrap'}} title={`${byteString(server.bytes)} transferred`}>
+                      {server.objects.toLocaleString()} Objects
                     </Typography>
                   </Box>
                 ))}

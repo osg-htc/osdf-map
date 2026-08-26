@@ -1,6 +1,6 @@
 "use client";
 
-import {Business, Storage, TripOrigin} from '@mui/icons-material';
+import {Business, Storage} from '@mui/icons-material';
 import {Box} from '@mui/material';
 import {Marker as MbMarker} from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -12,7 +12,7 @@ import ExecutionPointMarker from "@/components/ExecutionPointMarker";
 export interface InstitutionMarkerProps {
   institution: InstitutionEntry;
   active: boolean;
-  /** Draw the fan-out to every server this institution pulled from. */
+  /** Draw the fan-out to every cache this institution pulled from. */
   showConnections: boolean;
   onClick?: (id: string) => void;
 }
@@ -60,11 +60,8 @@ const InstitutionMarker = ({institution, active, showConnections, onClick}: Inst
           <ExecutionPointMarker
             key={server.name}
             point={server}
-            subtitle={server.type}
-            icon={ server.type == "Cache" ?
-              <Storage sx={{color: "#FF5733"}} fontSize={'small'} /> :
-              <TripOrigin sx={{color: "#FF5733"}} fontSize={'small'} />
-            }
+            subtitle={"Cache"}
+            icon={<Storage sx={{color: "#FF5733"}} fontSize={'small'} />}
           />
         ))}
       </Box>

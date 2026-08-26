@@ -30,8 +30,7 @@ const legendItems: Record<LegendVariant, {icon: ReactNode, label: string}[]> = {
   sites: [
     {icon: <Badge><Business sx={{color: "#65b853"}} /></Badge>, label: "Compute Site"},
     {icon: <Storage sx={{color: "#FF5733"}} />, label: "Cache"},
-    {icon: <TripOrigin sx={{color: "#FF5733"}} />, label: "Origin"},
-    {icon: <Swatch fill={"#ffe3da"} stroke={"#FF5733"} />, label: "Data Pulled from Server"},
+    {icon: <Swatch fill={"#ffe3da"} stroke={"#FF5733"} />, label: "Data Pulled from Cache"},
   ],
 };
 
@@ -88,9 +87,9 @@ const Legend = ({date, variant = "servers"}: LegendProps) => {
         </Typography>
         {variant === "sites" &&
           <Typography variant="body1" mb={2}>
-            This is the reverse view: it starts from a compute site and fans out to every cache and origin that site
-            pulled data from. The <Link href={"./"}>server view</Link> shows the same transfers in the other
-            direction.
+            This is the reverse view: it starts from a compute site and fans out to every cache that site pulled
+            data from. Origins are not shown here. The <Link href={"./"}>server view</Link> shows the same transfers
+            in the other direction.
           </Typography>
         }
         <Typography variant="body1" mb={2}>
