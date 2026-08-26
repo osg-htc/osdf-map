@@ -3,10 +3,6 @@ export interface Marker {
   longitude: number;
 }
 
-export interface ExecutionPointMarkerProps extends Marker {
-
-}
-
 export type Institution = {
   sites: string[]
 } & InstitutionMetadata & Metrics;
