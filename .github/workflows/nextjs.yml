@@ -61,7 +61,7 @@ jobs:
             -e ELASTIC_HOST="https://elastic.osg.chtc.io/q" \
             -e ELASTIC_USER="${{ secrets.ELASTIC_USER }}" \
             -e ELASTIC_PASSWORD="${{ secrets.ELASTIC_PASSWORD }}" \
-            nsf-osdf-map-data-builder map --use-elasticsearch --start $START_DATE --end $END_DATE
+            nsf-osdf-map-data-builder map --use-elasticsearch --start 2025-08-20 --end 2026-08-25
 
       - name: Upload data artifact
         id: artifact-upload-step
