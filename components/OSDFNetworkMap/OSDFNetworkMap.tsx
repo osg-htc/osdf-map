@@ -9,6 +9,7 @@ import {useMap} from "react-map-gl/mapbox";
 import ServerList from "@/components/ServerList";
 import Grid from "@mui/material/Grid";
 import Legend from "@/components/Legend";
+import ViewToggle from "@/components/ViewToggle";
 
 interface OSDFNetworkMapProps {
   siteMap: EnhancedEndpointEntry[];
@@ -40,6 +41,7 @@ const OSDFNetworkMap = ({siteMap, totalMetrics, date}: OSDFNetworkMapProps) => {
           </Paper>
         </Grid>
       </Grid>
+      <ViewToggle active={"servers"} />
       <Legend date={date} />
     </OSDFNetworkMapProvider>
   )

@@ -51,11 +51,11 @@ const PelicanServerMarker = ({name, type, active, latitude, longitude, instituti
           <ConnectionLayer origin={{latitude, longitude}} destinations={validConnections} />
         )}
         { showConnections && institutions && (
-          <ExecutionPointLayer institutions={institutions} expansionDuration={5000} />
+          <ExecutionPointLayer points={institutions} expansionDuration={5000} />
         )}
         { showConnections && institutions &&
           institutions.map((institution) => (
-            <ExecutionPointMarker key={institution.name} institution={institution} />
+            <ExecutionPointMarker key={institution.name} point={institution} />
           ))
         }
       </Box>

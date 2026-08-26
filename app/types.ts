@@ -52,7 +52,7 @@ export type Server = {
 }
 
 export type EndpointEntry = {
-  endpoint: string;
+  endpoints: string[];
   total_transfers: number;
   total_bytes: number;
   total_objects: number;
@@ -71,3 +71,20 @@ export interface Metrics {
 }
 
 export type EndpointSiteMap = EndpointEntry[];
+
+/**
+ * A point on the map that carries transfer metrics and can be labelled.
+ * Both `Institution` and `ServerLink` satisfy this shape, which lets the
+ * metric layers/markers be shared between the forward and reverse views.
+ */
+export type MetricPoint = Marker & Metrics & { name: string };
+
+/** A server an institution pulled data from, with the metrics for that pairing. */
+export type ServerLink = Server & Metrics & { endpoints: string[] };
+
+/** The inverse of `EndpointEntry`: one institution and every server it pulled from. */
+export interface InstitutionEntry extends InstitutionMetadata {
+  sites: string[];
+  servers: ServerLink[];
+  summary: Metrics;
+}

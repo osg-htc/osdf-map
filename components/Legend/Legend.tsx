@@ -1,9 +1,41 @@
 import {Box, Dialog, DialogContent, DialogTitle, IconButton, Link, Paper} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {Close, InfoOutline, Storage, TripOrigin} from "@mui/icons-material";
-import {useState} from "react";
+import {Business, Close, InfoOutline, Storage, TripOrigin} from "@mui/icons-material";
+import {ReactNode, useState} from "react";
 
-const Legend = ({date}: {date: Date}) => {
+export type LegendVariant = "servers" | "sites";
+
+interface LegendProps {
+  date: Date;
+  /** "servers" fans out from a Pelican server; "sites" fans out from a compute site. */
+  variant?: LegendVariant;
+}
+
+const Badge = ({children}: {children: ReactNode}) => (
+  <Box sx={{backgroundColor: "black", borderRadius: "50%", padding: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1001}}>
+    {children}
+  </Box>
+);
+
+const Swatch = ({fill, stroke}: {fill: string, stroke: string}) => (
+  <Box sx={{borderRadius: "50%", borderColor: stroke, border: '2px solid', backgroundColor: fill, height:'1.65rem', width: '1.65rem'}} />
+);
+
+const legendItems: Record<LegendVariant, {icon: ReactNode, label: string}[]> = {
+  servers: [
+    {icon: <Badge><Storage color={"primary"} /></Badge>, label: "Cache"},
+    {icon: <Badge><TripOrigin color={"primary"} /></Badge>, label: "Origin"},
+    {icon: <Swatch fill={"#e4fddb"} stroke={"#65b853"} />, label: "Data Transferred to Institution"},
+  ],
+  sites: [
+    {icon: <Badge><Business sx={{color: "#65b853"}} /></Badge>, label: "Compute Site"},
+    {icon: <Storage sx={{color: "#FF5733"}} />, label: "Cache"},
+    {icon: <TripOrigin sx={{color: "#FF5733"}} />, label: "Origin"},
+    {icon: <Swatch fill={"#ffe3da"} stroke={"#FF5733"} />, label: "Data Pulled from Server"},
+  ],
+};
+
+const Legend = ({date, variant = "servers"}: LegendProps) => {
 
   const [aboutOpen, setAboutOpen] = useState(false);
 
@@ -22,22 +54,12 @@ const Legend = ({date}: {date: Date}) => {
         p: 1
       }}
     >
-      <Box display="flex" flexDirection="row" alignItems={'center'} mb={1}>
-        <Box sx={{backgroundColor: "black", borderRadius: "50%", padding: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1001}}>
-          <Storage color={"primary"} />
+      {legendItems[variant].map(({icon, label}) => (
+        <Box key={label} display="flex" flexDirection="row" alignItems={'center'} mb={1}>
+          <Box display="flex" width={"1.65rem"} justifyContent={"center"}>{icon}</Box>
+          <Typography sx={{ml:1}} variant={'subtitle1'}>{label}</Typography>
         </Box>
-        <Typography sx={{ml:1}} variant={'subtitle1'}>Cache</Typography>
-      </Box>
-      <Box display="flex" flexDirection="row" alignItems={'center'} mb={1}>
-        <Box sx={{backgroundColor: "black", borderRadius: "50%", padding: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1001}}>
-          <TripOrigin color={"primary"}/>
-        </Box>
-        <Typography sx={{ml:1}} variant={'subtitle1'}>Origin</Typography>
-      </Box>
-      <Box display="flex" flexDirection="row" alignItems={'center'} mb={1}>
-        <Box sx={{borderRadius: "50%", borderColor: "#65b853", border: '2px solid', backgroundColor: "#e4fddb", height:'1.65rem', width: '1.65rem'}}></Box>
-        <Typography sx={{ml:1}} variant={'subtitle1'}>Data Transferred to Institution</Typography>
-      </Box>
+      ))}
       <hr/>
       <Box display="flex" flexDirection="column" alignItems={''}>
         <Typography sx={{}} variant={'subtitle1'}>{oneYearAgo.toLocaleDateString()} - {date.toLocaleDateString()}</Typography>
@@ -64,6 +86,13 @@ const Legend = ({date}: {date: Date}) => {
           past year ({oneYearAgo.toLocaleDateString()} – {date.toLocaleDateString()}). Each data point reflects
           aggregated bytes transferred from OSDF <Link href={"https://pelicanplatform.org"}>Pelican</Link> servers (Caches and Origins) to <Link href={"https://osg-htc.org/ospool"}>OSPool</Link> institutions.
         </Typography>
+        {variant === "sites" &&
+          <Typography variant="body1" mb={2}>
+            This is the reverse view: it starts from a compute site and fans out to every cache and origin that site
+            pulled data from. The <Link href={"./"}>server view</Link> shows the same transfers in the other
+            direction.
+          </Typography>
+        }
         <Typography variant="body1" mb={2}>
           Metrics represent activity observed within the displayed time window and may not reflect
           real-time server availability or current network topology.
